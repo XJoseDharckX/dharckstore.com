@@ -1,17 +1,17 @@
 // Configuración de la API
 const API_CONFIG = {
     // URL base para producción (Hostinger)
-    BASE_URL: process.env.NODE_ENV === 'production' 
-        ? 'https://dharckstore.com/api' 
-        : 'http://localhost:3000/api',
+    BASE_URL: 'https://dharckstore.com/api',
     
     // Endpoints
     ENDPOINTS: {
         ORDERS: '/orders',
         EXCHANGE_RATES: '/exchange-rates',
+        EXCHANGE: '/exchange',
         SELLERS: '/sellers',
         GAMES: '/games',
-        PRODUCTS: '/products'
+        PRODUCTS: '/products',
+        HEALTH: '/health'
     },
     
     // Headers por defecto
@@ -21,7 +21,7 @@ const API_CONFIG = {
     }
 };
 
-// Función para hacer peticiones HTTP
+// Función para hacer peticiones HTTP con mejor manejo de errores
 export const apiRequest = async (endpoint, options = {}) => {
     const url = `${API_CONFIG.BASE_URL}${endpoint}`;
     
@@ -34,15 +34,22 @@ export const apiRequest = async (endpoint, options = {}) => {
     };
 
     try {
+        console.log(`🌐 API Request: ${config.method || 'GET'} ${url}`);
+        
         const response = await fetch(url, config);
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            console.error(`❌ API Error ${response.status}:`, errorText);
+            throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
         }
         
-        return await response.json();
+        const data = await response.json();
+        console.log(`✅ API Response:`, data);
+        
+        return data;
     } catch (error) {
-        console.error('API Request Error:', error);
+        console.error('❌ API Request Error:', error);
         throw error;
     }
 };
@@ -50,15 +57,19 @@ export const apiRequest = async (endpoint, options = {}) => {
 // Servicios específicos
 export const orderService = {
     // Crear nuevo pedido
-    create: (orderData) => apiRequest(API_CONFIG.ENDPOINTS.ORDERS, {
-        method: 'POST',
-        body: JSON.stringify(orderData)
-    }),
+    create: (orderData) => {
+        console.log('📝 Creando pedido:', orderData);
+        return apiRequest(API_CONFIG.ENDPOINTS.ORDERS, {
+            method: 'POST',
+            body: JSON.stringify(orderData)
+        });
+    },
     
     // Obtener todos los pedidos
     getAll: (filters = {}) => {
         const params = new URLSearchParams(filters);
-        return apiRequest(`${API_CONFIG.ENDPOINTS.ORDERS}?${params}`);
+        const endpoint = `${API_CONFIG.ENDPOINTS.ORDERS}${params.toString() ? '?' + params : ''}`;
+        return apiRequest(endpoint);
     },
     
     // Obtener pedido por ID
@@ -78,8 +89,22 @@ export const orderService = {
 };
 
 export const exchangeRateService = {
+    // Obtener todas las tasas de cambio
     getAll: () => apiRequest(API_CONFIG.ENDPOINTS.EXCHANGE_RATES),
-    getRate: (from, to) => apiRequest(`${API_CONFIG.ENDPOINTS.EXCHANGE_RATES}/${from}/${to}`)
+    
+    // Obtener tasa específica
+    getRate: (from, to) => apiRequest(`${API_CONFIG.ENDPOINTS.EXCHANGE}/${from}/${to}`),
+    
+    // Convertir cantidad
+    convert: (amount, from, to) => apiRequest(API_CONFIG.ENDPOINTS.EXCHANGE, {
+        method: 'POST',
+        body: JSON.stringify({ amount, from, to })
+    })
+};
+
+// Servicio de salud de la API
+export const healthService = {
+    check: () => apiRequest(API_CONFIG.ENDPOINTS.HEALTH)
 };
 
 export default API_CONFIG;

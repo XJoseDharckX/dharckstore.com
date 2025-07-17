@@ -1,23 +1,20 @@
 {
-  "currentVersion": "1.1.0",
-  "releaseNotes": {
-    "1.1.0": [
-      "🔧 API backend completamente funcional en PHP",
-      "✅ Sistema de pedidos integrado con MySQL",
-      "🗄️ Base de datos configurada en Hostinger",
-      "🔄 Sincronización automática de pedidos",
-      "📊 Panel de administración operativo",
-      "🌐 Configuración de producción optimizada"
-    ],
-    "1.0.0": [
-      "✅ Logo integrado correctamente",
-      "✅ Título actualizado a 'DHARCK STORE|RECARGAS PARA VIDEOJUEGOS'",
-      "🧹 Limpieza de archivos obsoletos",
-      "📦 Sistema de versiones implementado"
-    ]
-  },
-  "archiveSettings": {
-    "keepVersions": 10,
-    "autoCleanup": true
+  "version": "1.2.0",
+  "release_date": "2024-12-19",
+  "release_notes": [
+    "✅ Sistema de pedidos completamente funcional con base de datos MySQL",
+    "✅ API PHP optimizada para manejo de pedidos en tiempo real",
+    "✅ Sistema de tasas de cambio automático USD/VES",
+    "✅ Sincronización automática entre frontend y backend",
+    "✅ Manejo de errores mejorado con fallback local",
+    "✅ Logging detallado para debugging",
+    "✅ Notificaciones visuales para el usuario",
+    "✅ Auto-sincronización cada 30 segundos",
+    "✅ Verificación de salud de la API",
+    "✅ Soporte para múltiples usuarios simultáneos"
+  ],
+  "archive": {
+    "enabled": true,
+    "keep_versions": 5
   }
 }
