@@ -1,0 +1,30 @@
+{
+    "name": "dharckstore/website",
+    "description": "DharckStore Website - Gaming Recharges México",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {},
+    "scripts": {
+        "post-install-cmd": [
+            "npm install",
+            "npm run build:hostinger"
+        ],
+        "post-update-cmd": [
+            "npm install",
+            "npm run build:hostinger"
+        ],
+        "build": [
+            "npm install",
+            "npm run build:hostinger"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
