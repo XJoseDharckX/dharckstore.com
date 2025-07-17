@@ -76,10 +76,36 @@ export const orderService = {
     getById: (id) => apiRequest(`${API_CONFIG.ENDPOINTS.ORDERS}/${id}`),
     
     // Actualizar estado del pedido
-    updateStatus: (id, statusData) => apiRequest(`${API_CONFIG.ENDPOINTS.ORDERS}/${id}/status`, {
-        method: 'PATCH',
-        body: JSON.stringify(statusData)
-    }),
+    async updateStatus(orderId, status) {
+        try {
+            console.log(`🔄 Actualizando estado del pedido ${orderId} a: ${status}`);
+            
+            const response = await apiRequest(`${API_CONFIG.endpoints.orders}/${orderId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status })
+            });
+    
+            if (response.success) {
+                console.log(`✅ Estado del pedido ${orderId} actualizado exitosamente`);
+                
+                // Mostrar notificación
+                if (window.showNotification) {
+                    window.showNotification(
+                        `Pedido #${orderId} ${status === 'completed' ? 'completado' : 'cancelado'}`,
+                        'success'
+                    );
+                }
+            }
+    
+            return response;
+        } catch (error) {
+            console.error('❌ Error actualizando estado del pedido:', error);
+            throw error;
+        }
+    },
     
     // Obtener estadísticas
     getStats: (sellerId = null) => {

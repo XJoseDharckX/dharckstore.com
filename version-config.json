@@ -1,17 +1,17 @@
 {
-  "version": "1.2.0",
+  "version": "1.4.0",
   "release_date": "2024-12-19",
   "release_notes": [
-    "✅ Sistema de pedidos completamente funcional con base de datos MySQL",
-    "✅ API PHP optimizada para manejo de pedidos en tiempo real",
-    "✅ Sistema de tasas de cambio automático USD/VES",
-    "✅ Sincronización automática entre frontend y backend",
-    "✅ Manejo de errores mejorado con fallback local",
-    "✅ Logging detallado para debugging",
-    "✅ Notificaciones visuales para el usuario",
-    "✅ Auto-sincronización cada 30 segundos",
-    "✅ Verificación de salud de la API",
-    "✅ Soporte para múltiples usuarios simultáneos"
+    "✅ Panel de administración completamente sincronizado con MySQL",
+    "✅ Gestión de pedidos en tiempo real desde el panel admin",
+    "✅ Estadísticas de pedidos y ingresos en vivo",
+    "✅ Actualización de estados de pedidos (completado/cancelado)",
+    "✅ Visualización de comprobantes de pago en el panel",
+    "✅ Auto-sincronización cada 30 segundos en el panel admin",
+    "✅ Notificaciones de cambios de estado en tiempo real",
+    "✅ API mejorada con endpoints para actualización de estados",
+    "✅ Manejo robusto de errores en el panel de administración",
+    "✅ Interfaz optimizada para gestión administrativa"
   ],
   "archive": {
     "enabled": true,

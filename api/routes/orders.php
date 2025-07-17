@@ -144,5 +144,56 @@ switch ($method) {
         break;
 }
 
+// Actualizar estado de un pedido
+if ($method === 'PUT' && preg_match('/\/(\d+)\/status$/', $path, $matches)) {
+    $orderId = $matches[1];
+    $input = json_decode(file_get_contents('php://input'), true);
+    
+    if (!isset($input['status'])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Estado requerido']);
+        exit;
+    }
+    
+    $status = $input['status'];
+    $allowedStatuses = ['pending', 'completed', 'cancelled'];
+    
+    if (!in_array($status, $allowedStatuses)) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Estado inválido']);
+        exit;
+    }
+    
+    try {
+        // Actualizar el estado del pedido
+        $stmt = $pdo->prepare("UPDATE orders SET status = ?, updated_at = NOW() WHERE id = ?");
+        $result = $stmt->execute([$status, $orderId]);
+        
+        if ($result && $stmt->rowCount() > 0) {
+            // Registrar en el historial
+            $stmt = $pdo->prepare("INSERT INTO order_status_history (order_id, status, changed_at) VALUES (?, ?, NOW())");
+            $stmt->execute([$orderId, $status]);
+            
+            // Obtener el pedido actualizado
+            $stmt = $pdo->prepare("SELECT * FROM orders WHERE id = ?");
+            $stmt->execute([$orderId]);
+            $order = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Estado actualizado exitosamente',
+                'order' => $order
+            ]);
+        } else {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Pedido no encontrado']);
+        }
+    } catch (PDOException $e) {
+        error_log("Error actualizando estado del pedido: " . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Error interno del servidor']);
+    }
+    exit;
+}
 echo json_encode($result);
 ?>

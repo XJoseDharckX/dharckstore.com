@@ -1,43 +1,48 @@
 import { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
+import { orderService, exchangeRateService } from '../config/api.js';
 
+// Datos iniciales como fallback
 const initialData = {
   games: [
     {
-      id: 'lords-mobile',
+      id: 1,
       name: 'Lords Mobile',
+      code: 'lords-mobile',
       requirements: [
         { id: 'playerId', label: 'ID del Jugador', placeholder: 'Ingresa tu ID', required: true },
         { id: 'castleName', label: 'Nombre del Castillo', placeholder: 'Nombre de tu castillo', required: true }
       ]
     },
     {
-      id: 'blood-strike',
+      id: 2,
       name: 'Blood Strike',
+      code: 'blood-strike',
       requirements: [
         { id: 'playerId', label: 'ID del Jugador', placeholder: 'Ingresa tu ID', required: true }
       ]
     },
     {
-      id: 'free-fire',
+      id: 3,
       name: 'Free Fire',
+      code: 'free-fire',
       requirements: [
         { id: 'playerId', label: 'ID del Jugador', placeholder: 'Ingresa tu ID', required: true }
       ]
     }
   ],
   items: [
-    { id: 'lm1', gameId: 'lords-mobile', name: '209💎', price: 2.30, profits: { default: 0.2 }, image: '' },
-    { id: 'lm2', gameId: 'lords-mobile', name: '524💎', price: 5.20, profits: { default: 0.5 }, image: '' },
-    { id: 'lm3', gameId: 'lords-mobile', name: '1048💎', price: 10.00, profits: { default: 1.0 }, image: '' },
-    { id: 'lm4', gameId: 'lords-mobile', name: '2096💎', price: 19.50, profits: { default: 1.95 }, image: '' },
-    { id: 'lm5', gameId: 'lords-mobile', name: '3144💎', price: 29.00, profits: { default: 2.9 }, image: '' },
-    { id: 'lm6', gameId: 'lords-mobile', name: '5240💎', price: 48.00, profits: { default: 4.8 }, image: '' },
-    { id: 'lm7', gameId: 'lords-mobile', name: '6812💎', price: 62.00, profits: { default: 6.2 }, image: '' },
-    { id: 'lm8', gameId: 'lords-mobile', name: '9956💎', price: 92.00, profits: { default: 9.2 }, image: '' },
-    { id: 'lm9', gameId: 'lords-mobile', name: '19912💎', price: 178.00, profits: { default: 17.8 }, image: '' },
-    { id: 'lm10', gameId: 'lords-mobile', name: '30392💎', price: 270.00, profits: { default: 27.0 }, image: '' },
-    { id: 'lm11', gameId: 'lords-mobile', name: '50304💎', price: 440.00, profits: { default: 44.0 }, image: '' },
+    { id: 1, gameId: 1, name: '209💎', price: 2.30, profits: { default: 0.2 }, image: '' },
+    { id: 2, gameId: 1, name: '524💎', price: 5.20, profits: { default: 0.5 }, image: '' },
+    { id: 3, gameId: 1, name: '1048💎', price: 10.00, profits: { default: 1.0 }, image: '' },
+    { id: 4, gameId: 1, name: '2096💎', price: 19.50, profits: { default: 1.95 }, image: '' },
+    { id: 5, gameId: 1, name: '3144💎', price: 29.00, profits: { default: 2.9 }, image: '' },
+    { id: 6, gameId: 1, name: '5240💎', price: 48.00, profits: { default: 4.8 }, image: '' },
+    { id: 7, gameId: 1, name: '6812💎', price: 62.00, profits: { default: 6.2 }, image: '' },
+    { id: 8, gameId: 1, name: '9956💎', price: 92.00, profits: { default: 9.2 }, image: '' },
+    { id: 9, gameId: 1, name: '19912💎', price: 178.00, profits: { default: 17.8 }, image: '' },
+    { id: 10, gameId: 1, name: '30392💎', price: 270.00, profits: { default: 27.0 }, image: '' },
+    { id: 11, gameId: 1, name: '50304💎', price: 440.00, profits: { default: 44.0 }, image: '' },
 
     { id: 'bs1', gameId: 'blood-strike', name: '100 + 5 oros', price: 0.89, profits: { default: 0.1 }, image: '' },
     { id: 'bs2', gameId: 'blood-strike', name: '300 + 20 oros', price: 2.80, profits: { default: 0.28 }, image: '' },
@@ -92,30 +97,178 @@ const useAdminData = () => {
     countries: [],
     orders: []
   });
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadedData = {};
-    for (const key in initialData) {
-      try {
-        const saved = localStorage.getItem(`dharck_store_${key}`);
-        loadedData[key] = saved ? JSON.parse(saved) : initialData[key];
-      } catch (e) {
-        loadedData[key] = initialData[key];
+  // Cargar datos desde la API
+  const loadDataFromAPI = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      console.log('🔄 Cargando datos del panel de administración desde la API...');
+      
+      // Cargar pedidos desde la API
+      const ordersResponse = await orderService.getAll();
+      console.log('📋 Pedidos cargados:', ordersResponse);
+      
+      // Cargar tasas de cambio
+      const exchangeResponse = await exchangeRateService.getAll();
+      console.log('💱 Tasas de cambio cargadas:', exchangeResponse);
+      
+      // Procesar datos de la API
+      const apiData = {
+        games: initialData.games, // Por ahora usar datos iniciales
+        items: initialData.items, // Por ahora usar datos iniciales
+        paymentMethods: initialData.paymentMethods, // Por ahora usar datos iniciales
+        sellers: initialData.sellers, // Por ahora usar datos iniciales
+        sellerRanks: initialData.sellerRanks,
+        countries: exchangeResponse?.rates ? processExchangeRates(exchangeResponse.rates) : initialData.countries,
+        orders: ordersResponse?.orders || []
+      };
+      
+      // Combinar con datos locales si existen
+      const finalData = {};
+      for (const key in apiData) {
+        try {
+          const saved = localStorage.getItem(`dharck_store_${key}`);
+          if (saved && key !== 'orders') {
+            // Para todo excepto pedidos, usar datos locales si existen
+            finalData[key] = JSON.parse(saved);
+          } else {
+            // Para pedidos, siempre usar datos de la API
+            finalData[key] = apiData[key];
+          }
+        } catch (e) {
+          finalData[key] = apiData[key];
+        }
       }
+      
+      setData(finalData);
+      console.log('✅ Datos del panel de administración cargados exitosamente');
+      
+    } catch (error) {
+      console.error('❌ Error cargando datos del panel:', error);
+      setError(error.message);
+      
+      // Usar datos locales como fallback
+      const fallbackData = {};
+      for (const key in initialData) {
+        try {
+          const saved = localStorage.getItem(`dharck_store_${key}`);
+          fallbackData[key] = saved ? JSON.parse(saved) : initialData[key];
+        } catch (e) {
+          fallbackData[key] = initialData[key];
+        }
+      }
+      setData(fallbackData);
+      
+      toast({
+        title: '⚠️ Modo Offline',
+        description: 'No se pudo conectar con el servidor. Usando datos locales.',
+        variant: 'destructive'
+      });
+    } finally {
+      setLoading(false);
     }
-    setData(loadedData);
+  };
+
+  // Procesar tasas de cambio de la API
+  const processExchangeRates = (rates) => {
+    const countries = [];
+    const processedCurrencies = new Set();
+    
+    rates.forEach(rate => {
+      if (!processedCurrencies.has(rate.to_currency)) {
+        countries.push({
+          code: rate.to_currency === 'VES' ? 'VE' : rate.to_currency === 'USD' ? 'US' : rate.to_currency,
+          name: rate.to_currency === 'VES' ? 'Venezuela' : rate.to_currency === 'USD' ? 'Estados Unidos' : rate.to_currency,
+          currency: rate.to_currency,
+          symbol: rate.to_currency === 'VES' ? 'Bs' : '$',
+          rate: rate.rate,
+          flag: rate.to_currency === 'VES' ? '🇻🇪' : '🇺🇸'
+        });
+        processedCurrencies.add(rate.to_currency);
+      }
+    });
+    
+    return countries.length > 0 ? countries : initialData.countries;
+  };
+
+  // Cargar datos al montar el componente
+  useEffect(() => {
+    loadDataFromAPI();
+    
+    // Recargar pedidos cada 30 segundos
+    const interval = setInterval(() => {
+      refreshOrders();
+    }, 30000);
+    
+    return () => clearInterval(interval);
   }, []);
 
+  // Refrescar solo los pedidos
+  const refreshOrders = async () => {
+    try {
+      console.log('🔄 Refrescando pedidos...');
+      const ordersResponse = await orderService.getAll();
+      
+      if (ordersResponse?.orders) {
+        setData(prev => ({
+          ...prev,
+          orders: ordersResponse.orders
+        }));
+        console.log('✅ Pedidos actualizados:', ordersResponse.orders.length);
+      }
+    } catch (error) {
+      console.error('❌ Error refrescando pedidos:', error);
+    }
+  };
+
+  // Actualizar datos (para datos locales)
   const updateData = (key, newData) => {
+    if (key === 'orders') {
+      // Los pedidos no se actualizan localmente, vienen de la API
+      toast({
+        title: '⚠️ Advertencia',
+        description: 'Los pedidos se sincronizan automáticamente con el servidor.',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
     localStorage.setItem(`dharck_store_${key}`, JSON.stringify(newData));
     setData(prev => ({ ...prev, [key]: newData }));
     toast({
-      title: '¡Éxito!',
-      description: `Los datos de ${key} se han actualizado.`
+      title: '✅ Éxito',
+      description: `Los datos de ${key} se han actualizado localmente.`
     });
   };
 
-  return { ...data, updateData };
+  // Obtener estadísticas de pedidos
+  const getOrderStats = () => {
+    const orders = data.orders || [];
+    return {
+      total: orders.length,
+      pending: orders.filter(o => o.status === 'pending').length,
+      completed: orders.filter(o => o.status === 'completed').length,
+      cancelled: orders.filter(o => o.status === 'cancelled').length,
+      totalRevenue: orders
+        .filter(o => o.status === 'completed')
+        .reduce((sum, o) => sum + (parseFloat(o.final_price) || 0), 0)
+    };
+  };
+
+  return { 
+    ...data, 
+    updateData, 
+    refreshOrders, 
+    loadDataFromAPI,
+    getOrderStats,
+    loading, 
+    error 
+  };
 };
 
 export default useAdminData;
