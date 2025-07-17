@@ -1,10 +1,8 @@
 {
-  "version": "1.5.0",
+  "version": "1.5.3",
   "release_date": "2024-12-19",
   "release_notes": [
-    "✅ Actualización de logos: logo principal cambiado a logo.png",
-    "✅ Agregado logo secundario logo1.png en el header",
-    "✅ Diseño mejorado del header con doble logo",
+    "✅ Corregido logo duplicado - Solo se muestra logo.png",
     "✅ Panel de administración completamente sincronizado con MySQL",
     "✅ Gestión de pedidos en tiempo real desde el panel admin",
     "✅ Estadísticas de pedidos y ingresos en vivo",
@@ -14,7 +12,9 @@
     "✅ Notificaciones de cambios de estado en tiempo real",
     "✅ API mejorada con endpoints para actualización de estados",
     "✅ Manejo robusto de errores en el panel de administración",
-    "✅ Interfaz optimizada para gestión administrativa"
+    "✅ Interfaz optimizada para gestión administrativa",
+    "✅ Estructura de base de datos verificada y optimizada",
+    "✅ APIs de pedidos completamente funcionales"
   ],
   "archive": {
     "enabled": true,
