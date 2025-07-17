@@ -18,6 +18,17 @@ body {
   @apply bg-gradient-to-br from-black via-purple-900 to-gray-900 text-white;
   font-family: 'Rajdhani', sans-serif;
   background-attachment: fixed;
+  /* Mejoras para móviles */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll; /* Mejor rendimiento en móviles */
+  }
 }
 
 .gamer-gradient {
@@ -28,11 +39,16 @@ body {
   background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(139, 92, 246, 0.1));
   border: 1px solid rgba(255, 215, 0, 0.3);
   backdrop-filter: blur(10px);
+  /* Mejoras para móviles */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .gamer-button {
   background: linear-gradient(45deg, #FFD700, #8B5CF6);
   transition: all 0.3s ease;
+  /* Mejoras táctiles para móviles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .gamer-button:hover {
@@ -40,8 +56,26 @@ body {
   box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
 }
 
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .gamer-button:hover {
+    transform: none;
+  }
+  
+  .gamer-button:active {
+    transform: scale(0.98);
+  }
+}
+
 .neon-text {
   text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+}
+
+/* Reducir efectos neon en pantallas pequeñas para mejor rendimiento */
+@media (max-width: 640px) {
+  .neon-text {
+    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+  }
 }
 
 .neon-border {
@@ -53,6 +87,9 @@ body {
   border: 2px solid transparent;
   background-clip: padding-box;
   position: relative;
+  /* Mejoras para móviles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .game-card::before {
@@ -66,6 +103,17 @@ body {
   border-radius: inherit;
   z-index: -1;
   margin: -2px;
+}
+
+/* Mejoras para hover en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .game-card:hover {
+    transform: none;
+  }
+  
+  .game-card:active {
+    transform: scale(0.98);
+  }
 }
 
 .admin-panel {
@@ -82,6 +130,9 @@ body {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(139, 92, 246, 0.1));
   border: 1px solid rgba(255, 215, 0, 0.3);
   transition: all 0.3s ease;
+  /* Mejoras para móviles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .payment-method:hover {
@@ -89,11 +140,32 @@ body {
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .payment-method:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: none;
+  }
+  
+  .payment-method:active {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  }
+}
+
 .order-status {
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+}
+
+/* Mejoras para móviles en estados de orden */
+@media (max-width: 640px) {
+  .order-status {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
 }
 
 .status-pending {
@@ -123,6 +195,21 @@ body {
   transition: transform 0.5s ease-in-out;
 }
 
+/* Reducir animaciones en dispositivos con preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide {
+    transition: none;
+  }
+  
+  .floating-animation {
+    animation: none;
+  }
+  
+  .pulse-glow {
+    animation: none;
+  }
+}
+
 .floating-animation {
   animation: float 3s ease-in-out infinite;
 }
@@ -132,6 +219,14 @@ body {
   50% { transform: translateY(-10px); }
 }
 
+/* Reducir movimiento de flotación en móviles */
+@media (max-width: 640px) {
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+}
+
 .pulse-glow {
   animation: pulseGlow 2s ease-in-out infinite alternate;
 }
@@ -139,4 +234,104 @@ body {
 @keyframes pulseGlow {
   from { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
   to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
+
+/* Mejoras adicionales para móviles */
+
+/* Mejorar el scroll en iOS */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mejorar la selección de texto en móviles */
+::selection {
+  background: rgba(255, 215, 0, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(255, 215, 0, 0.3);
+  color: white;
+}
+
+/* Mejorar los inputs en móviles */
+input, textarea, select {
+  font-size: 16px; /* Previene zoom en iOS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Mejorar botones en móviles */
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Mejoras para pantallas muy pequeñas */
+@media (max-width: 320px) {
+  .neon-text {
+    text-shadow: 0 0 3px #FFD700;
+  }
+  
+  .gamer-card {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+/* Mejoras para pantallas de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .neon-text {
+    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700;
+  }
+}
+
+/* Mejoras para orientación landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .floating-animation {
+    animation: none;
+  }
+  
+  .pulse-glow {
+    animation: none;
+  }
+}
+
+/* Mejoras para accesibilidad */
+@media (prefers-contrast: high) {
+  .gamer-card {
+    border: 2px solid #FFD700;
+  }
+  
+  .neon-text {
+    text-shadow: none;
+    color: #FFD700;
+  }
+}
+
+/* Focus visible para navegación por teclado */
+.focus-visible:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* Mejoras para el rendimiento en móviles */
+.game-card img,
+.seller img {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Optimizaciones para GPU en móviles */
+.gamer-card,
+.game-card,
+.gamer-button {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
