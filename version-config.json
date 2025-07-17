@@ -1,0 +1,15 @@
+{
+  "currentVersion": "1.0.0",
+  "releaseNotes": {
+    "1.0.0": [
+      "✅ Logo integrado correctamente",
+      "✅ Título actualizado a 'DHARCK STORE|RECARGAS PARA VIDEOJUEGOS'",
+      "🧹 Limpieza de archivos obsoletos",
+      "📦 Sistema de versiones implementado"
+    ]
+  },
+  "archiveSettings": {
+    "keepVersions": 10,
+    "autoCleanup": true
+  }
+}

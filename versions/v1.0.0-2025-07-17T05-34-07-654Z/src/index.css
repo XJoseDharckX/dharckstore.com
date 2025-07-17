@@ -16,17 +16,12 @@
 
 body {
   @apply bg-gradient-to-br from-black via-purple-900 to-gray-900 text-white;
-  font-family: 'Verdana', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   background-attachment: fixed;
   /* Mejoras para móviles */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-/* Aplicar Verdana a todos los elementos */
-* {
-  font-family: 'Verdana', sans-serif !important;
 }
 
 /* Mejoras para dispositivos móviles */

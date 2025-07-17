@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { Toaster } from '@/components/ui/toaster';
 import HomePage from '@/pages/HomePage';
 import GamePage from '@/pages/GamePage';
@@ -36,41 +36,34 @@ function App() {
 
   if (showCountrySelector) {
     return (
-      <HelmetProvider>
+      <>
         <Helmet>
-          <title>DHARCK STORE</title>
+          <title>DHARCK STORE - Selecciona tu País</title>
           <meta name="description" content="Selecciona tu país para ver precios en tu moneda local - DHARCK STORE" />
         </Helmet>
         <CountrySelector onCountrySelect={handleCountrySelect} countries={countries} />
         <Toaster />
-      </HelmetProvider>
+      </>
     );
   }
 
   return (
-    <HelmetProvider>
-      <Router
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
-        <div className="min-h-screen">
-          <Helmet>
-            <title>DHARCK STORE</title>
-            <meta name="description" content="La mejor tienda de recargas para videojuegos - Lords Mobile, Blood Strike, Free Fire y más" />
-          </Helmet>
-          
-          <Routes>
-            <Route path="/" element={<HomePage selectedCountry={selectedCountry} games={games} onCountryChange={handleCountryChange} />} />
-            <Route path="/game/:gameId" element={<GamePage selectedCountry={selectedCountry} games={games} items={items} paymentMethods={paymentMethods} sellers={sellers} ranks={ranks} updateOrders={updateOrders} onCountryChange={handleCountryChange} />} />
-            <Route path="/admin" element={<AdminPanel data={{ games, items, paymentMethods, sellers, orders, countries, ranks }} setData={{ updateGames, updateItems, updatePaymentMethods, updateSellers, updateOrders, updateCountries, updateRanks }} />} />
-          </Routes>
-          
-          <Toaster />
-        </div>
-      </Router>
-    </HelmetProvider>
+    <Router>
+      <div className="min-h-screen">
+        <Helmet>
+          <title>DHARCK STORE|RECARGAS PARA VIDEOJUEGOS</title>
+          <meta name="description" content="La mejor tienda de recargas para videojuegos - Lords Mobile, Blood Strike, Free Fire y más" />
+        </Helmet>
+        
+        <Routes>
+          <Route path="/" element={<HomePage selectedCountry={selectedCountry} games={games} onCountryChange={handleCountryChange} />} />
+          <Route path="/game/:gameId" element={<GamePage selectedCountry={selectedCountry} games={games} items={items} paymentMethods={paymentMethods} sellers={sellers} ranks={ranks} updateOrders={updateOrders} onCountryChange={handleCountryChange} />} />
+          <Route path="/admin" element={<AdminPanel data={{ games, items, paymentMethods, sellers, orders, countries, ranks }} setData={{ updateGames, updateItems, updatePaymentMethods, updateSellers, updateOrders, updateCountries, updateRanks }} />} />
+        </Routes>
+        
+        <Toaster />
+      </div>
+    </Router>
   );
 }
 

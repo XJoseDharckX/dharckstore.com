@@ -75,8 +75,8 @@ function HomePage({ selectedCountry }) {
               className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-yellow-400"
             />
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold neon-text">
-                DHARCK STORE
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold font-['Orbitron'] neon-text">
+                DHARCK STORE|RECARGAS PARA VIDEOJUEGOS
               </h1>
               <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">
                 Gaming Recharges • {selectedCountry?.name} ({selectedCountry?.currency})

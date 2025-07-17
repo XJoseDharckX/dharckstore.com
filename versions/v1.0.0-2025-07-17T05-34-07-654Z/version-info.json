@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2025-07-17T05:34:07.732Z",
+  "buildHash": "mzbe",
+  "files": [
+    "src",
+    "package.json",
+    "vite.config.js",
+    "index.html"
+  ]
+}
