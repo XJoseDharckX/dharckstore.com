@@ -5,6 +5,10 @@
 $method = $_SERVER['REQUEST_METHOD'];
 $input = json_decode(file_get_contents('php://input'), true);
 
+// Obtener la ruta actual
+$requestUri = $_SERVER['REQUEST_URI'];
+$path = parse_url($requestUri, PHP_URL_PATH);
+
 // Función para crear pedido
 function createOrder($pdo, $data) {
     try {
@@ -126,28 +130,9 @@ function getOrders($pdo, $filters = []) {
     }
 }
 
-// Manejar rutas
-switch ($method) {
-    case 'POST':
-        $result = createOrder($pdo, $input);
-        break;
-        
-    case 'GET':
-        $result = getOrders($pdo, $_GET);
-        break;
-        
-    default:
-        $result = [
-            'success' => false,
-            'error' => 'Método no permitido'
-        ];
-        break;
-}
-
 // Actualizar estado de un pedido
-if ($method === 'PUT' && preg_match('/\/(\d+)\/status$/', $path, $matches)) {
+if ($method === 'PUT' && preg_match('/\/api\/orders\/(\d+)\/status/', $path, $matches)) {
     $orderId = $matches[1];
-    $input = json_decode(file_get_contents('php://input'), true);
     
     if (!isset($input['status'])) {
         http_response_code(400);
@@ -195,5 +180,24 @@ if ($method === 'PUT' && preg_match('/\/(\d+)\/status$/', $path, $matches)) {
     }
     exit;
 }
+
+// Manejar rutas normales
+switch ($method) {
+    case 'POST':
+        $result = createOrder($pdo, $input);
+        break;
+        
+    case 'GET':
+        $result = getOrders($pdo, $_GET);
+        break;
+        
+    default:
+        $result = [
+            'success' => false,
+            'error' => 'Método no permitido'
+        ];
+        break;
+}
+
 echo json_encode($result);
 ?>

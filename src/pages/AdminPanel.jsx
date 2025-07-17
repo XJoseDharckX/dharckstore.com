@@ -1,17 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Settings, ShoppingCart, Package, CreditCard, Users, Globe, Gamepad2 } from 'lucide-react';
+import { Settings, ShoppingCart, Package, CreditCard, Users, Globe, Gamepad2, AlertCircle } from 'lucide-react';
 import OrdersTab from '@/components/admin/OrdersTab';
 import ItemsTab from '@/components/admin/ItemsTab';
 import PaymentsTab from '@/components/admin/PaymentsTab';
 import SellersTab from '@/components/admin/SellersTab';
 import CountriesTab from '@/components/admin/CountriesTab';
 import GamesTab from '@/components/admin/GamesTab';
+import useAdminData from '@/hooks/useAdminData';
 
-function AdminPanel({ data, setData }) {
-  const { games, items, paymentMethods, sellers, orders, countries, ranks } = data;
-  const { updateGames, updateItems, updatePaymentMethods, updateSellers, updateOrders, updateCountries, updateRanks } = setData;
+function AdminPanel() {
+  const { 
+    games, 
+    items, 
+    paymentMethods, 
+    sellers, 
+    orders, 
+    countries, 
+    sellerRanks,
+    updateData, 
+    refreshOrders, 
+    loadDataFromAPI,
+    getOrderStats,
+    loading, 
+    error 
+  } = useAdminData();
 
   return (
     <div className="min-h-screen p-6">
@@ -24,6 +38,13 @@ function AdminPanel({ data, setData }) {
             </h1>
           </div>
           <p className="text-gray-400">Gestiona todos los aspectos de DHARCK STORE.</p>
+          
+          {error && (
+            <div className="mt-4 p-4 bg-red-900/20 border border-red-500 rounded-lg flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-red-400" />
+              <span className="text-red-400">Error de conexión: {error}</span>
+            </div>
+          )}
         </motion.div>
 
         <Tabs defaultValue="orders" className="space-y-6">
@@ -36,12 +57,55 @@ function AdminPanel({ data, setData }) {
             <TabsTrigger value="countries"><Globe className="w-4 h-4 mr-2" />Países</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="orders"><OrdersTab orders={orders} updateOrders={updateOrders} items={items} sellers={sellers} /></TabsContent>
-          <TabsContent value="items"><ItemsTab items={items} updateItems={updateItems} games={games} ranks={ranks} /></TabsContent>
-          <TabsContent value="games"><GamesTab games={games} updateGames={updateGames} /></TabsContent>
-          <TabsContent value="payments"><PaymentsTab paymentMethods={paymentMethods} updatePaymentMethods={updatePaymentMethods} countries={countries} /></TabsContent>
-          <TabsContent value="sellers"><SellersTab sellers={sellers} updateSellers={updateSellers} ranks={ranks} updateRanks={updateRanks} /></TabsContent>
-          <TabsContent value="countries"><CountriesTab countries={countries} updateCountries={updateCountries} /></TabsContent>
+          <TabsContent value="orders">
+            <OrdersTab 
+              orders={orders} 
+              updateData={updateData}
+              refreshOrders={refreshOrders}
+              loading={loading}
+              getOrderStats={getOrderStats}
+            />
+          </TabsContent>
+          
+          <TabsContent value="items">
+            <ItemsTab 
+              items={items} 
+              updateData={(newItems) => updateData('items', newItems)} 
+              games={games} 
+              ranks={sellerRanks} 
+            />
+          </TabsContent>
+          
+          <TabsContent value="games">
+            <GamesTab 
+              games={games} 
+              updateData={(newGames) => updateData('games', newGames)} 
+            />
+          </TabsContent>
+          
+          <TabsContent value="payments">
+            <PaymentsTab 
+              paymentMethods={paymentMethods} 
+              updateData={(newMethods) => updateData('paymentMethods', newMethods)} 
+              countries={countries} 
+            />
+          </TabsContent>
+          
+          <TabsContent value="sellers">
+            <SellersTab 
+              sellers={sellers} 
+              updateData={(newSellers) => updateData('sellers', newSellers)} 
+              ranks={sellerRanks} 
+              updateRanks={(newRanks) => updateData('sellerRanks', newRanks)} 
+            />
+          </TabsContent>
+          
+          <TabsContent value="countries">
+            <CountriesTab 
+              countries={countries} 
+              updateData={(newCountries) => updateData('countries', newCountries)} 
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </div>

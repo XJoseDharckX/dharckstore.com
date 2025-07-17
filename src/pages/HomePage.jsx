@@ -69,11 +69,18 @@ function HomePage({ selectedCountry }) {
             animate={{ x: 0, opacity: 1 }}
             className="flex items-center space-x-2 sm:space-x-4"
           >
-            <img 
-              src="/image/logo1.png" 
-              alt="DHARCK STORE Logo" 
-              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-yellow-400"
-            />
+            <div className="flex items-center space-x-2">
+              <img 
+                src="/image/logo.png" 
+                alt="DHARCK STORE Logo Principal" 
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-yellow-400"
+              />
+              <img 
+                src="/image/logo1.png" 
+                alt="DHARCK STORE Logo Secundario" 
+                className="w-8 h-8 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-purple-400 opacity-80"
+              />
+            </div>
             <div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-bold neon-text">
                 DHARCK STORE
