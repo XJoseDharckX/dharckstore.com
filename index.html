@@ -137,7 +137,116 @@ window.fetch = function(...args) {
 </script>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <div class="loading">
+            <h1>🎮 DHARCK STORE</h1>
+            <div class="spinner"></div>
+            <p>Cargando Gaming Recharges...</p>
+        </div>
+    </div>
     
+    <!-- Cargar React y la aplicación -->
+    <script type="module">
+        // Importar React y ReactDOM desde CDN
+        import React from 'https://esm.sh/react@18.2.0';
+        import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
+        
+        // Componente principal simplificado para Hostinger
+        const App = () => {
+            const [loading, setLoading] = React.useState(true);
+            
+            React.useEffect(() => {
+                // Simular carga de la aplicación
+                setTimeout(() => setLoading(false), 2000);
+            }, []);
+            
+            if (loading) {
+                return React.createElement('div', { className: 'loading' },
+                    React.createElement('h1', null, '🎮 DHARCK STORE'),
+                    React.createElement('div', { className: 'spinner' }),
+                    React.createElement('p', null, 'Cargando Gaming Recharges...')
+                );
+            }
+            
+            return React.createElement('div', { 
+                style: { 
+                    padding: '20px', 
+                    textAlign: 'center',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    minHeight: '100vh',
+                    color: 'white'
+                }
+            },
+                React.createElement('h1', null, '🎮 DHARCK STORE'),
+                React.createElement('h2', null, 'Gaming Recharges • Venezuela (VES)'),
+                React.createElement('p', { style: { fontSize: '1.2rem', marginTop: '2rem' } }, 
+                    '¡Bienvenido a DharckStore! Tu tienda de recargas gaming en Venezuela.'),
+                React.createElement('div', { 
+                    style: { 
+                        marginTop: '3rem',
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                        gap: '2rem',
+                        maxWidth: '1200px',
+                        margin: '3rem auto'
+                    }
+                },
+                    React.createElement('div', {
+                        style: {
+                            background: 'rgba(255,255,255,0.1)',
+                            padding: '2rem',
+                            borderRadius: '10px',
+                            backdropFilter: 'blur(10px)'
+                        }
+                    },
+                        React.createElement('h3', null, '🎯 Free Fire'),
+                        React.createElement('p', null, 'Diamantes y pases de batalla')
+                    ),
+                    React.createElement('div', {
+                        style: {
+                            background: 'rgba(255,255,255,0.1)',
+                            padding: '2rem',
+                            borderRadius: '10px',
+                            backdropFilter: 'blur(10px)'
+                        }
+                    },
+                        React.createElement('h3', null, '⚔️ Call of Duty Mobile'),
+                        React.createElement('p', null, 'CP y Battle Pass')
+                    ),
+                    React.createElement('div', {
+                        style: {
+                            background: 'rgba(255,255,255,0.1)',
+                            padding: '2rem',
+                            borderRadius: '10px',
+                            backdropFilter: 'blur(10px)'
+                        }
+                    },
+                        React.createElement('h3', null, '🎮 Mobile Legends'),
+                        React.createElement('p', null, 'Diamantes y skins')
+                    )
+                ),
+                React.createElement('div', {
+                    style: {
+                        marginTop: '3rem',
+                        padding: '2rem',
+                        background: 'rgba(255,255,255,0.1)',
+                        borderRadius: '10px',
+                        backdropFilter: 'blur(10px)',
+                        maxWidth: '600px',
+                        margin: '3rem auto'
+                    }
+                },
+                    React.createElement('h3', null, '📞 Contacto'),
+                    React.createElement('p', null, 'WhatsApp: +58 424-XXX-XXXX'),
+                    React.createElement('p', null, 'Email: dharckstore@gmail.com'),
+                    React.createElement('p', null, 'Horario: 8:00 AM - 10:00 PM')
+                )
+            );
+        };
+        
+        // Renderizar la aplicación
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
 </body>
 </html>
