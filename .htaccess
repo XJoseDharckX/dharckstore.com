@@ -1,10 +1,59 @@
+# CONFIGURACIÓN ESPECÍFICA PARA HOSTINGER + REACT
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  
+  # Servir archivos estáticos directamente
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^.*$ - [L]
+  
+  # Redirigir todo lo demás a index.html (React Router)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
 </IfModule>
+
+# TIPOS MIME CRÍTICOS PARA HOSTINGER
+<IfModule mod_mime.c>
+  # JavaScript modules - FORZAR tipo correcto
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType application/javascript .jsx
+  AddType text/css .css
+  AddType application/json .json
+  
+  # Fonts
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType application/font-woff .woff
+  AddType application/font-woff2 .woff2
+</IfModule>
+
+# HEADERS ESPECÍFICOS PARA ARCHIVOS JS
+<FilesMatch "\.(js|mjs|jsx)$">
+  <IfModule mod_headers.c>
+    Header always set Content-Type "application/javascript; charset=utf-8"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Cache-Control "public, max-age=31536000"
+  </IfModule>
+</FilesMatch>
+
+# CONFIGURACIÓN PARA ARCHIVOS COMPILADOS
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=31536000"
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
+
+# FORZAR TIPOS MIME (CRÍTICO PARA HOSTINGER)
+<Files "*.js">
+  ForceType application/javascript
+</Files>
+
+<Files "*.css">
+  ForceType text/css
+</Files>
 
 <IfModule mod_headers.c>
   Header set X-Powered-By "Hostinger Horizons"

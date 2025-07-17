@@ -203,28 +203,30 @@ export default defineConfig({
 		},
 		allowedHosts: true,
 		middlewareMode: false,
-		// Configuración específica para tipos MIME
 		fs: {
 			strict: false
 		}
 	},
 	resolve: {
-		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
+		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json'],
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
-	base: './', // Para rutas relativas
+	// CONFIGURACIÓN PARA HOSTINGER
+	base: '/', // Usar rutas absolutas durante el build
 	build: {
 		outDir: 'dist',
 		assetsDir: 'assets',
+		sourcemap: false,
 		rollupOptions: {
 			output: {
 				manualChunks: undefined,
 			},
 		},
+		minify: 'terser',
+		target: 'es2015'
 	},
-	// Configuración específica para desarrollo
 	optimizeDeps: {
 		include: ['react', 'react-dom']
 	}

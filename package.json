@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:version": "npm run clean && npm run build && npm run archive",
+    "build:hostinger": "npm run clean && npm run build && npm run copy-assets",
     "clean": "rimraf dist",
+    "copy-assets": "node scripts/copy-for-hostinger.js",
     "archive": "node scripts/archive-version.js"
   },
   "dependencies": {
