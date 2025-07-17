@@ -10,33 +10,55 @@
   Header set X-Powered-By "Hostinger Horizons"
 </IfModule>
 
-# MIME Types para módulos JavaScript y otros archivos
+# CONFIGURACIÓN ESPECÍFICA PARA HOSTINGER
+# Forzar tipos MIME para JavaScript modules
 <IfModule mod_mime.c>
-  # JavaScript modules
+  # JavaScript ES6 modules - CRÍTICO para Hostinger
   AddType application/javascript .js
   AddType application/javascript .mjs
-  AddType text/javascript .js
+  AddType application/javascript .jsx
   
-  # CSS
+  # CSS y otros
   AddType text/css .css
-  
-  # JSON
   AddType application/json .json
   
   # Fonts
   AddType font/woff2 .woff2
   AddType font/woff .woff
-  AddType font/ttf .ttf
-  AddType font/otf .otf
-  
-  # Images
-  AddType image/svg+xml .svg
-  AddType image/webp .webp
+  AddType application/font-woff .woff
+  AddType application/font-woff2 .woff2
 </IfModule>
 
-# Headers para módulos ES6
-<FilesMatch "\.(js|mjs)$">
+# Headers específicos para archivos JavaScript en Hostinger
+<FilesMatch "\.(js|mjs|jsx)$">
   <IfModule mod_headers.c>
-    Header set Content-Type "application/javascript"
+    Header always set Content-Type "application/javascript; charset=utf-8"
+    Header always set X-Content-Type-Options "nosniff"
   </IfModule>
 </FilesMatch>
+
+# Configuración adicional para Hostinger
+<IfModule mod_headers.c>
+  # CORS para desarrollo
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+  
+  # Cache control para archivos estáticos
+  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+</IfModule>
+
+# Configuración específica para módulos ES6 en Hostinger
+<Files "*.js">
+  ForceType application/javascript
+</Files>
+
+<Files "*.mjs">
+  ForceType application/javascript
+</Files>
+
+<Files "*.jsx">
+  ForceType application/javascript
+</Files>
