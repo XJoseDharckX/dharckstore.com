@@ -1,0 +1,142 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gamer-gold: #FFD700;
+  --gamer-purple: #8B5CF6;
+  --gamer-dark-purple: #6B46C1;
+  --gamer-black: #0F0F0F;
+  --gamer-dark-gray: #1A1A1A;
+  --gamer-accent: #00FFFF;
+}
+
+body {
+  @apply bg-gradient-to-br from-black via-purple-900 to-gray-900 text-white;
+  font-family: 'Rajdhani', sans-serif;
+  background-attachment: fixed;
+}
+
+.gamer-gradient {
+  background: linear-gradient(135deg, #FFD700 0%, #8B5CF6 50%, #000000 100%);
+}
+
+.gamer-card {
+  background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.gamer-button {
+  background: linear-gradient(45deg, #FFD700, #8B5CF6);
+  transition: all 0.3s ease;
+}
+
+.gamer-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.neon-text {
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+}
+
+.neon-border {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.game-card {
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(26, 26, 26, 0.9));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #FFD700, #8B5CF6, #00FFFF);
+  border-radius: inherit;
+  z-index: -1;
+  margin: -2px;
+}
+
+.admin-panel {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.95));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.country-selector {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+.payment-method {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+  border-color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.order-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+  border: 1px solid #FFC107;
+}
+
+.status-sent {
+  background: rgba(40, 167, 69, 0.2);
+  color: #28A745;
+  border: 1px solid #28A745;
+}
+
+.status-cancelled {
+  background: rgba(220, 53, 69, 0.2);
+  color: #DC3545;
+  border: 1px solid #DC3545;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  transition: transform 0.5s ease-in-out;
+}
+
+.floating-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+  to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
