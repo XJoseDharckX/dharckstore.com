@@ -69,17 +69,38 @@ function HomePage({ selectedCountry }) {
             animate={{ x: 0, opacity: 1 }}
             className="flex items-center space-x-2 sm:space-x-4"
           >
-            <div className="flex items-center space-x-2">
-              <img 
-                src="/image/logo.png" 
-                alt="DHARCK STORE Logo Principal" 
-                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-yellow-400"
-              />
-              <img 
-                src="/image/logo1.png" 
-                alt="DHARCK STORE Logo Secundario" 
-                className="w-8 h-8 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-purple-400 opacity-80"
-              />
+            <div className="flex items-center space-x-3">
+              {/* DIAGNÓSTICO TEMPORAL - Logo Principal */}
+              <div className="flex flex-col items-center space-y-1">
+                <img 
+                  src="/image/logo.png?v=1.5.2" 
+                  alt="DHARCK STORE Logo Principal" 
+                  className="w-14 h-14 sm:w-18 sm:h-18 rounded-full object-cover border-3 border-yellow-400 shadow-xl bg-white/10 p-1"
+                  onError={(e) => {
+                    console.error('❌ Error loading logo.png:', e);
+                    e.target.style.border = '3px solid red';
+                    e.target.alt = 'ERROR: logo.png';
+                  }}
+                  onLoad={() => console.log('✅ logo.png loaded successfully')}
+                />
+                <span className="text-xs text-gray-500">logo.png</span>
+              </div>
+              
+              {/* DIAGNÓSTICO TEMPORAL - Logo Secundario */}
+              <div className="flex flex-col items-center space-y-1">
+                <img 
+                  src="/image/logo1.png?v=1.5.2" 
+                  alt="DHARCK STORE Logo Secundario" 
+                  className="w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-purple-400 shadow-lg bg-white/5 p-0.5"
+                  onError={(e) => {
+                    console.error('❌ Error loading logo1.png:', e);
+                    e.target.style.border = '3px solid red';
+                    e.target.alt = 'ERROR: logo1.png';
+                  }}
+                  onLoad={() => console.log('✅ logo1.png loaded successfully')}
+                />
+                <span className="text-xs text-gray-500">logo1.png</span>
+              </div>
             </div>
             <div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-bold neon-text">
