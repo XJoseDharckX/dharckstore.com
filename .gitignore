@@ -4,8 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Production build (mantenemos dist/ para deployment)
-# dist/
+# Production builds
+dist/
+build/
 
 # Environment variables
 .env
@@ -14,33 +15,51 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# IDE
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# WordPress specific - IMPORTANTE: Excluir wp-config.php por seguridad
-wp/wp-config.php
-wp/wp-content/uploads/
-wp/wp-content/cache/
-wp/wp-content/backup-db/
-wp/wp-content/advanced-cache.php
-wp/wp-content/wp-cache-config.php
-wp/wp-content/backups/
-
 # Logs
+logs
 *.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Archive versions (keep only current)
+versions/
+archives/
+
+# WordPress (if not needed in repo)
+wp/
 
 # Temporary files
 *.tmp
 *.temp
 
-# Zip files
+# Database backups
+*.sql
+*.db
+
+# Hostinger specific
+.htaccess.backup
 *.zip
 hostinger-files.zip
 

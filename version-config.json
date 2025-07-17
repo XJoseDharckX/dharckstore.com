@@ -1,6 +1,14 @@
 {
-  "currentVersion": "1.0.0",
+  "currentVersion": "1.1.0",
   "releaseNotes": {
+    "1.1.0": [
+      "🔧 API backend completamente funcional en PHP",
+      "✅ Sistema de pedidos integrado con MySQL",
+      "🗄️ Base de datos configurada en Hostinger",
+      "🔄 Sincronización automática de pedidos",
+      "📊 Panel de administración operativo",
+      "🌐 Configuración de producción optimizada"
+    ],
     "1.0.0": [
       "✅ Logo integrado correctamente",
       "✅ Título actualizado a 'DHARCK STORE|RECARGAS PARA VIDEOJUEGOS'",
