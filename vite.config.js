@@ -202,6 +202,11 @@ export default defineConfig({
 			'Cross-Origin-Embedder-Policy': 'credentialless',
 		},
 		allowedHosts: true,
+		middlewareMode: false,
+		// Configuración específica para tipos MIME
+		fs: {
+			strict: false
+		}
 	},
 	resolve: {
 		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
@@ -219,4 +224,8 @@ export default defineConfig({
 			},
 		},
 	},
+	// Configuración específica para desarrollo
+	optimizeDeps: {
+		include: ['react', 'react-dom']
+	}
 });

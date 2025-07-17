@@ -9,3 +9,34 @@
 <IfModule mod_headers.c>
   Header set X-Powered-By "Hostinger Horizons"
 </IfModule>
+
+# MIME Types para módulos JavaScript y otros archivos
+<IfModule mod_mime.c>
+  # JavaScript modules
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType text/javascript .js
+  
+  # CSS
+  AddType text/css .css
+  
+  # JSON
+  AddType application/json .json
+  
+  # Fonts
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType font/ttf .ttf
+  AddType font/otf .otf
+  
+  # Images
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+</IfModule>
+
+# Headers para módulos ES6
+<FilesMatch "\.(js|mjs)$">
+  <IfModule mod_headers.c>
+    Header set Content-Type "application/javascript"
+  </IfModule>
+</FilesMatch>
