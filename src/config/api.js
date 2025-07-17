@@ -2,7 +2,7 @@
 const API_CONFIG = {
     // URL base para producción (Hostinger)
     BASE_URL: process.env.NODE_ENV === 'production' 
-        ? 'https://tu-dominio.com/api' 
+        ? 'https://dharckstore.com/api' 
         : 'http://localhost:3000/api',
     
     // Endpoints
