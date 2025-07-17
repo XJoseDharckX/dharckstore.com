@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Settings, Crown, Zap, Target } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Settings, Crown, Zap, Target, Users, Star } from 'lucide-react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { initialGames } from '@/data/initialData';
 import * as LucideIcons from 'lucide-react';
@@ -11,6 +11,18 @@ const DynamicIcon = ({ name }) => {
   const IconComponent = LucideIcons[name] || LucideIcons['HelpCircle'];
   return <IconComponent />;
 };
+
+// Datos de vendedores con sus imágenes
+const sellers = [
+  { id: 1, name: 'Enmanuel', image: '/image/vendedores/Enmanuel.png', rating: 5, sales: 1250 },
+  { id: 2, name: 'Jhack', image: '/image/vendedores/Jhack.png', rating: 5, sales: 980 },
+  { id: 3, name: 'Mateo', image: '/image/vendedores/Mateo.png', rating: 4.9, sales: 1100 },
+  { id: 4, name: 'SpartanoWolf98', image: '/image/vendedores/SpartanoWolf98.png', rating: 4.8, sales: 850 },
+  { id: 5, name: 'David', image: '/image/vendedores/david.png', rating: 4.9, sales: 920 },
+  { id: 6, name: 'Ernesto', image: '/image/vendedores/ernesto.png', rating: 4.7, sales: 780 },
+  { id: 7, name: 'Satoru', image: '/image/vendedores/satoru.png', rating: 5, sales: 1350 },
+  { id: 8, name: 'XJoseDharckX', image: '/image/vendedores/xjosedharckx.png', rating: 5, sales: 1500 }
+];
 
 function HomePage({ selectedCountry }) {
   const [games] = useLocalStorage('games', initialGames);
@@ -50,9 +62,9 @@ function HomePage({ selectedCountry }) {
             className="flex items-center space-x-4"
           >
             <img 
-              src="https://storage.googleapis.com/hostinger-horizons-assets-prod/61b2162b-01ce-4d46-b033-1873729d268e/df0e9d4d786ef05b8adcc7c026f5d185.png" 
+              src="/image/logo1.png" 
               alt="DHARCK STORE Logo" 
-              className="w-16 h-16 rounded-full"
+              className="w-16 h-16 rounded-full object-cover border-2 border-yellow-400"
             />
             <div>
               <h1 className="text-3xl font-bold font-['Orbitron'] neon-text">
@@ -88,7 +100,7 @@ function HomePage({ selectedCountry }) {
         >
           {games.map((game) => (
             <div key={game.id} className="min-w-full h-full relative">
-              <img  className="w-full h-full object-cover" alt={`${game.name} hero image`} src="https://images.unsplash.com/photo-1543882501-9251a94dc7c3" />
+              <img className="w-full h-full object-cover" alt={`${game.name} hero image`} src="https://images.unsplash.com/photo-1543882501-9251a94dc7c3" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
               <div className="absolute inset-0 flex items-center z-20">
                 <div className="max-w-7xl mx-auto px-6 w-full">
@@ -162,7 +174,7 @@ function HomePage({ selectedCountry }) {
               className="game-card rounded-2xl p-6 cursor-pointer group"
             >
               <div className="relative mb-6 overflow-hidden rounded-xl">
-                 <img  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" alt={`${game.name} game cover`} src="https://images.unsplash.com/photo-1656545729966-e5a6fea3b04a" />
+                 <img className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" alt={`${game.name} game cover`} src="https://images.unsplash.com/photo-1656545729966-e5a6fea3b04a" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${game.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
               </div>
               <div className="flex items-center mb-4">
@@ -175,6 +187,50 @@ function HomePage({ selectedCountry }) {
               <Button className="w-full gamer-button font-bold rounded-xl">
                 Recargar Ahora
               </Button>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Nueva sección de vendedores */}
+      <section className="max-w-7xl mx-auto px-6 mb-12">
+        <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-center mb-12">
+          <h2 className="text-4xl font-bold font-['Orbitron'] neon-text mb-4">
+            Nuestros Vendedores
+          </h2>
+          <p className="text-xl text-gray-400">
+            Equipo profesional con miles de ventas exitosas
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {sellers.map((seller, index) => (
+            <motion.div
+              key={seller.id}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.05 }}
+              className="gamer-card rounded-xl p-4 text-center group cursor-pointer"
+            >
+              <div className="relative mb-4">
+                <img 
+                  src={seller.image} 
+                  alt={seller.name}
+                  className="w-20 h-20 rounded-full mx-auto object-cover border-2 border-yellow-400 group-hover:border-purple-400 transition-colors"
+                />
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+              </div>
+              <h3 className="text-lg font-bold font-['Orbitron'] mb-2">
+                {seller.name}
+              </h3>
+              <div className="flex items-center justify-center mb-2">
+                <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                <span className="text-sm text-gray-300 ml-1">{seller.rating}</span>
+              </div>
+              <p className="text-xs text-gray-400">
+                {seller.sales}+ ventas
+              </p>
             </motion.div>
           ))}
         </div>
