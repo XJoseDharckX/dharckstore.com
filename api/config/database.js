@@ -1,15 +1,19 @@
-// Configuración de la base de datos MySQL
+// Configuración de la base de datos MySQL para Hostinger
 const mysql = require('mysql2/promise');
 
 const dbConfig = {
     host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'dharckstore',
+    user: process.env.DB_USER || 'u875897750_dharckstore',
+    password: process.env.DB_PASSWORD || 'E6IngNyMqtN',
+    database: process.env.DB_NAME || 'u875897750_pedidos',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    charset: 'utf8mb4'
+    charset: 'utf8mb4',
+    // Configuración específica para Hostinger
+    ssl: false,
+    acquireTimeout: 60000,
+    timeout: 60000
 };
 
 // Crear pool de conexiones
@@ -20,6 +24,8 @@ async function testConnection() {
     try {
         const connection = await pool.getConnection();
         console.log('✅ Conexión a MySQL establecida correctamente');
+        console.log(`📊 Base de datos: ${dbConfig.database}`);
+        console.log(`👤 Usuario: ${dbConfig.user}`);
         connection.release();
         return true;
     } catch (error) {
