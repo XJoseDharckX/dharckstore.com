@@ -2,139 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="data:image/png;base64,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" />
-    <meta name="generator" content="Hostinger Horizons" />
+    <link rel="icon" type="image/png" href="data:image/png;base64,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" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DHARCK STORE</title>
-  <script type="module" crossorigin src="./dist/assets/index-40cd2a9c.js"></script>
-  <link rel="stylesheet" href="./dist/assets/index-5b9f1eaa.css">
-  <script type="module">
-window.onerror = (message, source, lineno, colno, errorObj) => {
-	const errorDetails = errorObj ? JSON.stringify({
-		name: errorObj.name,
-		message: errorObj.message,
-		stack: errorObj.stack,
-		source,
-		lineno,
-		colno,
-	}) : null;
-
-	window.parent.postMessage({
-		type: 'horizons-runtime-error',
-		message,
-		error: errorDetails
-	}, '*');
-};
-</script>
-  <script type="module">
-const observer = new MutationObserver((mutations) => {
-	for (const mutation of mutations) {
-		for (const addedNode of mutation.addedNodes) {
-			if (
-				addedNode.nodeType === Node.ELEMENT_NODE &&
-				(
-					addedNode.tagName?.toLowerCase() === 'vite-error-overlay' ||
-					addedNode.classList?.contains('backdrop')
-				)
-			) {
-				handleViteOverlay(addedNode);
-			}
-		}
-	}
-});
-
-observer.observe(document.documentElement, {
-	childList: true,
-	subtree: true
-});
-
-function handleViteOverlay(node) {
-	if (!node.shadowRoot) {
-		return;
-	}
-
-	const backdrop = node.shadowRoot.querySelector('.backdrop');
-
-	if (backdrop) {
-		const overlayHtml = backdrop.outerHTML;
-		const parser = new DOMParser();
-		const doc = parser.parseFromString(overlayHtml, 'text/html');
-		const messageBodyElement = doc.querySelector('.message-body');
-		const fileElement = doc.querySelector('.file');
-		const messageText = messageBodyElement ? messageBodyElement.textContent.trim() : '';
-		const fileText = fileElement ? fileElement.textContent.trim() : '';
-		const error = messageText + (fileText ? ' File:' + fileText : '');
-
-		window.parent.postMessage({
-			type: 'horizons-vite-error',
-			error,
-		}, '*');
-	}
-}
-</script>
-  <script type="module">
-const originalConsoleError = console.error;
-console.error = function(...args) {
-	originalConsoleError.apply(console, args);
-
-	let errorString = '';
-
-	for (let i = 0; i < args.length; i++) {
-		const arg = args[i];
-		if (arg instanceof Error) {
-			errorString = arg.stack || `${arg.name}: ${arg.message}`;
-			break;
-		}
-	}
-
-	if (!errorString) {
-		errorString = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ');
-	}
-
-	window.parent.postMessage({
-		type: 'horizons-console-error',
-		error: errorString
-	}, '*');
-};
-</script>
-  <script type="module">
-const originalFetch = window.fetch;
-
-window.fetch = function(...args) {
-	const url = args[0] instanceof Request ? args[0].url : args[0];
-
-	// Skip WebSocket URLs
-	if (url.startsWith('ws:') || url.startsWith('wss:')) {
-		return originalFetch.apply(this, args);
-	}
-
-	return originalFetch.apply(this, args)
-		.then(async response => {
-			const contentType = response.headers.get('Content-Type') || '';
-
-			// Exclude HTML document responses
-			const isDocumentResponse =
-				contentType.includes('text/html') ||
-				contentType.includes('application/xhtml+xml');
-
-			if (!response.ok && !isDocumentResponse) {
-					const responseClone = response.clone();
-					const errorFromRes = await responseClone.text();
-					const requestUrl = response.url;
-					console.error(`Fetch error from ${requestUrl}: ${errorFromRes}`);
-			}
-
-			return response;
-		})
-		.catch(error => {
-			if (!url.match(/.html?$/i)) {
-				console.error(error);
-			}
-
-			throw error;
-		});
-};
-</script>
+    <style>
+        /* Estilos para el loading spinner */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px 0;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <div id="root">
@@ -144,109 +47,6 @@ window.fetch = function(...args) {
             <p>Cargando Gaming Recharges...</p>
         </div>
     </div>
-    
-    <!-- Cargar React y la aplicación -->
-    <script type="module">
-        // Importar React y ReactDOM desde CDN
-        import React from 'https://esm.sh/react@18.2.0';
-        import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
-        
-        // Componente principal simplificado para Hostinger
-        const App = () => {
-            const [loading, setLoading] = React.useState(true);
-            
-            React.useEffect(() => {
-                // Simular carga de la aplicación
-                setTimeout(() => setLoading(false), 2000);
-            }, []);
-            
-            if (loading) {
-                return React.createElement('div', { className: 'loading' },
-                    React.createElement('h1', null, '🎮 DHARCK STORE'),
-                    React.createElement('div', { className: 'spinner' }),
-                    React.createElement('p', null, 'Cargando Gaming Recharges...')
-                );
-            }
-            
-            return React.createElement('div', { 
-                style: { 
-                    padding: '20px', 
-                    textAlign: 'center',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    minHeight: '100vh',
-                    color: 'white'
-                }
-            },
-                React.createElement('h1', null, '🎮 DHARCK STORE'),
-                React.createElement('h2', null, 'Gaming Recharges • Venezuela (VES)'),
-                React.createElement('p', { style: { fontSize: '1.2rem', marginTop: '2rem' } }, 
-                    '¡Bienvenido a DharckStore! Tu tienda de recargas gaming en Venezuela.'),
-                React.createElement('div', { 
-                    style: { 
-                        marginTop: '3rem',
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                        gap: '2rem',
-                        maxWidth: '1200px',
-                        margin: '3rem auto'
-                    }
-                },
-                    React.createElement('div', {
-                        style: {
-                            background: 'rgba(255,255,255,0.1)',
-                            padding: '2rem',
-                            borderRadius: '10px',
-                            backdropFilter: 'blur(10px)'
-                        }
-                    },
-                        React.createElement('h3', null, '🎯 Free Fire'),
-                        React.createElement('p', null, 'Diamantes y pases de batalla')
-                    ),
-                    React.createElement('div', {
-                        style: {
-                            background: 'rgba(255,255,255,0.1)',
-                            padding: '2rem',
-                            borderRadius: '10px',
-                            backdropFilter: 'blur(10px)'
-                        }
-                    },
-                        React.createElement('h3', null, '⚔️ Call of Duty Mobile'),
-                        React.createElement('p', null, 'CP y Battle Pass')
-                    ),
-                    React.createElement('div', {
-                        style: {
-                            background: 'rgba(255,255,255,0.1)',
-                            padding: '2rem',
-                            borderRadius: '10px',
-                            backdropFilter: 'blur(10px)'
-                        }
-                    },
-                        React.createElement('h3', null, '🎮 Mobile Legends'),
-                        React.createElement('p', null, 'Diamantes y skins')
-                    )
-                ),
-                React.createElement('div', {
-                    style: {
-                        marginTop: '3rem',
-                        padding: '2rem',
-                        background: 'rgba(255,255,255,0.1)',
-                        borderRadius: '10px',
-                        backdropFilter: 'blur(10px)',
-                        maxWidth: '600px',
-                        margin: '3rem auto'
-                    }
-                },
-                    React.createElement('h3', null, '📞 Contacto'),
-                    React.createElement('p', null, 'WhatsApp: +58 424-XXX-XXXX'),
-                    React.createElement('p', null, 'Email: dharckstore@gmail.com'),
-                    React.createElement('p', null, 'Horario: 8:00 AM - 10:00 PM')
-                )
-            );
-        };
-        
-        // Renderizar la aplicación
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(React.createElement(App));
-    </script>
+    <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

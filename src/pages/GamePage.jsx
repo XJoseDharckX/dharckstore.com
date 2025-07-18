@@ -137,7 +137,7 @@ function GamePage({ selectedCountry, games, items, paymentMethods, sellers, rank
               const prices = convertPrice(item.price);
               return (
                 <div key={item.id} onClick={() => setSelectedItem(item)} className={`p-4 rounded-lg cursor-pointer transition-all text-center ${selectedItem?.id === item.id ? 'neon-border bg-yellow-400/20' : 'payment-method'}`}>
-                  {item.imageUrl && <img  src={item.imageUrl} alt={item.name} className="w-16 h-16 mx-auto rounded-md mb-2 object-cover" src="https://images.unsplash.com/photo-1696457848608-2bec59080f62" />}
+                  {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-16 h-16 mx-auto rounded-md mb-2 object-cover" />}
                   <h3 className="font-bold text-lg">{item.name}</h3>
                   <p className="text-yellow-400 font-bold">{selectedCountry.symbol}{prices.local}</p>
                   <p className="text-sm text-gray-400">${prices.usd} USD</p>
