@@ -3,13 +3,18 @@
   RewriteEngine On
   RewriteBase /
   
+  # IMPORTANTE: Manejar rutas de API ANTES que React Router
+  # Redirigir todas las rutas /api/* al archivo PHP correspondiente
+  RewriteRule ^api/(.*)$ api/index.php [L,QSA]
+  
   # Servir archivos estáticos directamente
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^.*$ - [L]
   
-  # Redirigir todo lo demás a index.html (React Router)
+  # Redirigir todo lo demás a index.html (React Router) - EXCEPTO API
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/api/
   RewriteRule ^ index.html [L]
 </IfModule>
 
