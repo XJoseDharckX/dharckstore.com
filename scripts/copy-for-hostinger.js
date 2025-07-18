@@ -14,13 +14,13 @@ const distIndexPath = 'dist/index.html';
 if (fs.existsSync(distIndexPath)) {
     const indexContent = fs.readFileSync(distIndexPath, 'utf8');
     
-    // Modificar las rutas para que sean relativas y funcionen en Hostinger
+    // Modificar las rutas para que sean absolutas y funcionen en Hostinger
     const modifiedContent = indexContent
-        .replace(/href="\/assets\//g, 'href="./dist/assets/')
-        .replace(/src="\/assets\//g, 'src="./dist/assets/')
-        .replace(/href="\/image\//g, 'href="./image/')
-        .replace(/src="\/image\//g, 'src="./image/')
-        .replace(/\/favicon\.ico/g, './favicon.ico');
+        .replace(/href="\/assets\//g, 'href="/assets/')
+        .replace(/src="\/assets\//g, 'src="/assets/')
+        .replace(/href="\/image\//g, 'href="/image/')
+        .replace(/src="\/image\//g, 'src="/image/')
+        .replace(/\/favicon\.ico/g, '/favicon.ico');
     
     // Escribir el index.html modificado en la raíz
     fs.writeFileSync('index.html', modifiedContent);
@@ -28,6 +28,15 @@ if (fs.existsSync(distIndexPath)) {
 } else {
     console.error('❌ Error: No se encontró dist/index.html');
     process.exit(1);
+}
+
+// Copiar la carpeta assets de dist a la raíz
+if (fs.existsSync('dist/assets')) {
+    if (fs.existsSync('assets')) {
+        fs.rmSync('assets', { recursive: true, force: true });
+    }
+    fs.cpSync('dist/assets', 'assets', { recursive: true });
+    console.log('✅ Carpeta assets copiada a la raíz');
 }
 
 // Crear un archivo PHP simple para que Hostinger reconozca el proyecto

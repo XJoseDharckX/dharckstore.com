@@ -38,10 +38,8 @@
             padding: 0;
         }
     </style>
-  
-  
-  <script type="module" crossorigin src="/assets/index-02d39da7.js"></script>
-  <link rel="stylesheet" href="/assets/index-5b9f1eaa.css">
+  <script type="module" crossorigin src="./dist/assets/index-f609e2b2.js"></script>
+  <link rel="stylesheet" href="./dist/assets/index-5b9f1eaa.css">
   <script type="module">
 window.onerror = (message, source, lineno, colno, errorObj) => {
 	const errorDetails = errorObj ? JSON.stringify({
@@ -178,5 +176,6 @@ window.fetch = function(...args) {
             <p>Cargando Gaming Recharges...</p>
         </div>
     </div>
+    
 </body>
 </html>
