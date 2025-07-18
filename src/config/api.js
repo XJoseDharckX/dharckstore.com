@@ -80,7 +80,7 @@ export const orderService = {
         try {
             console.log(`🔄 Actualizando estado del pedido ${orderId} a: ${status}`);
             
-            const response = await apiRequest(`${API_CONFIG.endpoints.orders}/${orderId}/status`, {
+            const response = await apiRequest(`${API_CONFIG.ENDPOINTS.ORDERS}/${orderId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
