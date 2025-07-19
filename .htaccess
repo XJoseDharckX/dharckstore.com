@@ -7,8 +7,8 @@ RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^api/.*\.php$ - [L]
 
 # Redirigir rutas de API que NO son archivos a index.php CON LA RUTA ORIGINAL
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^api/(.*)$ api/index.php?route=$1 [L,QSA]
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^api/(.*)$ api/index.php?route=$1 [L,QSA]
 
 # Servir archivos estáticos directamente
 RewriteCond %{REQUEST_FILENAME} -f
