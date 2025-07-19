@@ -1,7 +1,5 @@
 // Servicio para comunicarse con la API
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://dharckstore.com/api' 
-    : '/api'; // Cambiado a ruta relativa para desarrollo local con PHP
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost/api';  // Cambiado a /api para producción, asumiendo mismo dominio
 
 class ApiService {
     // Crear nuevo pedido
