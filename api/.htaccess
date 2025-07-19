@@ -1,1 +1,21 @@
+# Forzar ejecución de PHP 8.2
 SetHandler application/x-lsphp82
+
+# Habilitar reescritura de URLs
+RewriteEngine On
+
+# Redirigir todas las peticiones a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
+
+# Configuración de seguridad
+<Files "*.php">
+    SetHandler application/x-lsphp82
+</Files>
+
+# Prevenir acceso directo a archivos sensibles
+<FilesMatch "\.(log|sql|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
