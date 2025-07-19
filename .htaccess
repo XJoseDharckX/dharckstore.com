@@ -1,58 +1,46 @@
-# CONFIGURACIÓN ESPECÍFICA PARA HOSTINGER + REACT
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  
-  # IMPORTANTE: Permitir acceso directo a archivos PHP en /api/
-  RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^api/.*\.php$ - [L]
-  
-  # Redirigir rutas de API que NO son archivos a index.php CON LA RUTA ORIGINAL
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^api/(.*)$ api/index.php?route=$1 [L,QSA]
-  
-  # Servir archivos estáticos directamente
-  RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^.*$ - [L]
-  
-  # Redirigir todo lo demás a index.html (React Router) - EXCEPTO API
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_URI} !^/api/
-  RewriteRule ^ index.html [L]
-</IfModule>
+# CONFIGURACIÓN SIMPLIFICADA PARA HOSTINGER + REACT
+RewriteEngine On
+RewriteBase /
+
+# IMPORTANTE: Permitir acceso directo a archivos PHP en /api/
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^api/.*\.php$ - [L]
+
+# Redirigir rutas de API que NO son archivos a index.php CON LA RUTA ORIGINAL
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.*)$ api/index.php?route=$1 [L,QSA]
+
+# Servir archivos estáticos directamente
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^.*$ - [L]
+
+# Redirigir todo lo demás a index.html (React Router) - EXCEPTO API
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^ index.html [L]
 
 # TIPOS MIME CRÍTICOS PARA HOSTINGER
-<IfModule mod_mime.c>
-  # JavaScript modules - FORZAR tipo correcto
-  AddType application/javascript .js
-  AddType application/javascript .mjs
-  AddType application/javascript .jsx
-  AddType text/css .css
-  AddType application/json .json
-  
-  # Fonts
-  AddType font/woff2 .woff2
-  AddType font/woff .woff
-  AddType application/font-woff .woff
-  AddType application/font-woff2 .woff2
-</IfModule>
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType application/javascript .jsx
+AddType text/css .css
+AddType application/json .json
+
+# Fonts
+AddType font/woff2 .woff2
+AddType font/woff .woff
 
 # HEADERS ESPECÍFICOS PARA ARCHIVOS JS
 <FilesMatch "\.(js|mjs|jsx)$">
-  <IfModule mod_headers.c>
-    Header always set Content-Type "application/javascript; charset=utf-8"
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set Cache-Control "public, max-age=31536000"
-  </IfModule>
+  Header always set Content-Type "application/javascript; charset=utf-8"
+  Header always set X-Content-Type-Options "nosniff"
 </FilesMatch>
 
 # CONFIGURACIÓN PARA ARCHIVOS COMPILADOS
 <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2)$">
-  <IfModule mod_headers.c>
-    Header set Cache-Control "public, max-age=31536000"
-    Header set Access-Control-Allow-Origin "*"
-  </IfModule>
+  Header set Cache-Control "public, max-age=31536000"
+  Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
 
 # FORZAR TIPOS MIME (CRÍTICO PARA HOSTINGER)
@@ -64,59 +52,7 @@
   ForceType text/css
 </Files>
 
-<IfModule mod_headers.c>
-  Header set X-Powered-By "Hostinger Horizons"
-</IfModule>
-
-# CONFIGURACIÓN ESPECÍFICA PARA HOSTINGER
-# Forzar tipos MIME para JavaScript modules
-<IfModule mod_mime.c>
-  # JavaScript ES6 modules - CRÍTICO para Hostinger
-  AddType application/javascript .js
-  AddType application/javascript .mjs
-  AddType application/javascript .jsx
-  
-  # CSS y otros
-  AddType text/css .css
-  AddType application/json .json
-  
-  # Fonts
-  AddType font/woff2 .woff2
-  AddType font/woff .woff
-  AddType application/font-woff .woff
-  AddType application/font-woff2 .woff2
-</IfModule>
-
-# Headers específicos para archivos JavaScript en Hostinger
-<FilesMatch "\.(js|mjs|jsx)$">
-  <IfModule mod_headers.c>
-    Header always set Content-Type "application/javascript; charset=utf-8"
-    Header always set X-Content-Type-Options "nosniff"
-  </IfModule>
-</FilesMatch>
-
-# Configuración adicional para Hostinger
-<IfModule mod_headers.c>
-  # CORS para desarrollo
-  Header always set Access-Control-Allow-Origin "*"
-  Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-  Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
-  
-  # Cache control para archivos estáticos
-  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
-    Header set Cache-Control "public, max-age=31536000"
-  </FilesMatch>
-</IfModule>
-
-# Configuración específica para módulos ES6 en Hostinger
-<Files "*.js">
-  ForceType application/javascript
-</Files>
-
-<Files "*.mjs">
-  ForceType application/javascript
-</Files>
-
-<Files "*.jsx">
-  ForceType application/javascript
-</Files>
+# CORS para desarrollo
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
