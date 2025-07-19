@@ -3,9 +3,9 @@ header('Content-Type: application/json');
 
 // Configuración de la base de datos
 $host = "localhost";
-$username = "u875897750_hostinger";
+$username = "u875897750_dharck";
 $password = "Jose35//";
-$database = "u875897750_dharckstore";
+$database = "u875897750_basededatos";
 
 try {
     // Probar conexión
